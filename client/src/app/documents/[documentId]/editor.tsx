@@ -94,7 +94,6 @@ export const Editor = () => {
       TableHeader,
       TableCell,
     ],
-    content: "<p>Hello World!</p>",
   });
 
   return (
