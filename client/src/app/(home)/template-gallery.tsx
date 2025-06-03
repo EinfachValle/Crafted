@@ -31,6 +31,7 @@ export const TemplateGallery = () => {
                   )}
                 >
                   <button
+                    aria-label={template.label}
                     disabled={isCreating}
                     onClick={() => {}}
                     style={{
