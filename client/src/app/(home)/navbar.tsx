@@ -1,3 +1,4 @@
+import { UserButton } from "@clerk/clerk-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -19,7 +20,7 @@ export const Navbar = () => {
         <h3 className="text-xl">Crafted</h3>
       </div>
       <SearchInput />
-      <div />
+      <UserButton />
     </nav>
   );
 };
