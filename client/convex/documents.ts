@@ -1,7 +1,39 @@
-import { query } from "./_generated/server";
+import { paginationOptsValidator } from "convex/server";
+import { v } from "convex/values";
+
+import { mutation, query } from "./_generated/server";
+
+export const create = mutation({
+  args: {
+    title: v.optional(v.string()),
+    initialContent: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const user = await ctx.auth.getUserIdentity();
+
+    if (!user) {
+      throw new Error("Unauthorized");
+    }
+
+    return await ctx.db.insert("documents", {
+      title: args.title ?? "Untitled Document",
+      ownerId: user.subject,
+      initialContent: args.initialContent,
+      roomId: "",
+    });
+  },
+});
 
 export const get = query({
-  handler: async (ctx) => {
-    return await ctx.db.query("documents").collect();
+  args: { paginationOpts: v.optional(paginationOptsValidator) },
+  handler: async (ctx, args) => {
+    if (args.paginationOpts) {
+      return await ctx.db.query("documents").paginate(args.paginationOpts);
+    } else {
+      // Provide a sensible default PaginationOptions if needed
+      return await ctx.db
+        .query("documents")
+        .paginate({ numItems: 10, cursor: null });
+    }
   },
 });

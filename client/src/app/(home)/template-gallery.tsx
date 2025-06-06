@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import {
   Carousel,
   CarouselContent,
@@ -9,9 +11,29 @@ import {
 } from "@/components/ui/carousel";
 import { templates } from "@/constants/templates";
 import { cn } from "@/lib/utils";
+import { useMutation } from "convex/react";
+import { useRouter } from "next/navigation";
+
+import { api } from "../../../convex/_generated/api";
 
 export const TemplateGallery = () => {
-  const isCreating = false; // Replace with actual state management logic
+  const router = useRouter();
+  const create = useMutation(api.documents.create);
+  const [isCreating, setIsCreating] = useState(false);
+
+  const onTemplateClick = (title: string, initialContent?: string) => {
+    setIsCreating(true);
+    create({ title, initialContent })
+      .then((documentId) => {
+        router.push(`/documents/${documentId}`);
+      })
+      .catch((error) => {
+        console.error("Error creating document:", error);
+      })
+      .finally(() => {
+        setIsCreating(false);
+      });
+  };
 
   return (
     <div className="bg-[#F1F3F4]">
@@ -33,7 +55,10 @@ export const TemplateGallery = () => {
                   <button
                     aria-label={template.label}
                     disabled={isCreating}
-                    onClick={() => {}}
+                    // TODO: Add proper inital content
+                    onClick={() =>
+                      onTemplateClick(template.label, "template.initialContent")
+                    }
                     style={{
                       backgroundImage: `url(${template.imageUrl})`,
                       backgroundSize: "cover",
