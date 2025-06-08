@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -39,7 +40,7 @@ export const DocumentsTable = ({
               <TableHead>&nbsp;</TableHead>
               <TableHead className="hidden md:table-cell">Shared</TableHead>
               <TableHead className="hidden md:table-cell">Created at</TableHead>
-              <TableHead className="hidden md:table-cell">Changed at</TableHead>
+              <TableHead className="hidden md:table-cell">Updated at</TableHead>
             </TableRow>
           </TableHeader>
           {documents?.length === 0 ? (
@@ -62,6 +63,18 @@ export const DocumentsTable = ({
           )}
         </Table>
       )}
+      <div className="flex justify-center items-center">
+        {/* TODO: Add Constant names for 'CanLoadMore' */}
+        {/* TODO: Add loadMore conditionally on screen size */}
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => loadMore(15)}
+          disabled={status !== "CanLoadMore"}
+        >
+          {status === "CanLoadMore" ? "Load More" : "End of Results"}
+        </Button>
+      </div>
     </div>
   );
 };

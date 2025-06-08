@@ -12,7 +12,7 @@ const Home = () => {
     api.documents.get,
     {},
     {
-      initialNumItems: 5,
+      initialNumItems: 15,
     },
   );
 
