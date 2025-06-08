@@ -10,6 +10,8 @@
     "convex": "convex dev"
   },
   "dependencies": {
+    "@clerk/clerk-react": "^5.31.9",
+    "@clerk/nextjs": "^6.21.0",
     "@hookform/resolvers": "^3.10.0",
     "@radix-ui/react-accordion": "^1.2.2",
     "@radix-ui/react-alert-dialog": "^1.1.5",

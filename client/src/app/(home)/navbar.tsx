@@ -1,3 +1,4 @@
+import { OrganizationSwitcher, UserButton } from "@clerk/clerk-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -19,7 +20,15 @@ export const Navbar = () => {
         <h3 className="text-xl">Crafted</h3>
       </div>
       <SearchInput />
-      <div />
+      <div className="flex items-center gap-3 max-sm:pl-6">
+        <OrganizationSwitcher
+          afterCreateOrganizationUrl="/"
+          afterLeaveOrganizationUrl="/"
+          afterSelectOrganizationUrl="/"
+          afterSelectPersonalUrl="/"
+        />
+        <UserButton />
+      </div>
     </nav>
   );
 };
