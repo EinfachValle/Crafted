@@ -48,7 +48,6 @@ export const RenameDialog = ({
       })
       .finally(() => {
         setIsUpdating(false);
-        setOpen(false);
       });
   };
 

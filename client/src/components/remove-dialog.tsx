@@ -26,7 +26,7 @@ interface RemoveDialogProps {
 export const RemoveDialog = ({ documentId, children }: RemoveDialogProps) => {
   const removeDocument = useMutation(api.documents.removeById);
 
-  const [isRomoving, setIsRemoving] = useState(false);
+  const [isRemoving, setIsRemoving] = useState(false);
 
   return (
     <AlertDialog>
@@ -44,7 +44,7 @@ export const RemoveDialog = ({ documentId, children }: RemoveDialogProps) => {
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction
-            disabled={isRomoving}
+            disabled={isRemoving}
             onClick={(e) => {
               e.stopPropagation();
               setIsRemoving(true);
