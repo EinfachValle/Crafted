@@ -1,5 +1,5 @@
 import { paginationOptsValidator } from "convex/server";
-import { v } from "convex/values";
+import { ConvexError, v } from "convex/values";
 
 import { mutation, query } from "./_generated/server";
 
@@ -12,7 +12,7 @@ export const create = mutation({
     const user = await ctx.auth.getUserIdentity();
 
     if (!user) {
-      throw new Error("Unauthorized");
+      throw new ConvexError("Unauthorized");
     }
 
     return await ctx.db.insert("documents", {
@@ -25,15 +25,30 @@ export const create = mutation({
 });
 
 export const get = query({
-  args: { paginationOpts: v.optional(paginationOptsValidator) },
-  handler: async (ctx, args) => {
-    if (args.paginationOpts) {
-      return await ctx.db.query("documents").paginate(args.paginationOpts);
-    } else {
+  args: {
+    paginationOpts: paginationOptsValidator,
+    search: v.optional(v.string()),
+  },
+  handler: async (ctx, { search, paginationOpts }) => {
+    const user = await ctx.auth.getUserIdentity();
+
+    if (!user) {
+      throw new ConvexError("Unauthorized");
+    }
+
+    if (search) {
       return await ctx.db
         .query("documents")
-        .paginate({ numItems: 10, cursor: null });
+        .withSearchIndex("search_documents", (q) =>
+          q.search("title", search).eq("ownerId", user.subject),
+        )
+        .paginate(paginationOpts);
     }
+
+    return await ctx.db
+      .query("documents")
+      .withIndex("by_owner_id", (q) => q.eq("ownerId", user.subject))
+      .paginate(paginationOpts);
   },
 });
 
@@ -43,19 +58,19 @@ export const removeById = mutation({
     const user = await ctx.auth.getUserIdentity();
 
     if (!user) {
-      throw new Error("Unauthorized");
+      throw new ConvexError("Unauthorized");
     }
 
     const document = await ctx.db.get(args.id);
 
     if (!document || document.ownerId !== user.subject) {
-      throw new Error("Document not found or unauthorized");
+      throw new ConvexError("Document not found or unauthorized");
     }
 
     const isOwner = document.ownerId === user.subject;
 
     if (!isOwner) {
-      throw new Error("Unauthorized to delete this document");
+      throw new ConvexError("Unauthorized to delete this document");
     }
 
     return await ctx.db.delete(args.id);
@@ -68,19 +83,19 @@ export const updateById = mutation({
     const user = await ctx.auth.getUserIdentity();
 
     if (!user) {
-      throw new Error("Unauthorized");
+      throw new ConvexError("Unauthorized");
     }
 
     const document = await ctx.db.get(args.id);
 
     if (!document || document.ownerId !== user.subject) {
-      throw new Error("Document not found or unauthorized");
+      throw new ConvexError("Document not found or unauthorized");
     }
 
     const isOwner = document.ownerId === user.subject;
 
     if (!isOwner) {
-      throw new Error("Unauthorized to delete this document");
+      throw new ConvexError("Unauthorized to delete this document");
     }
 
     return await ctx.db.patch(args.id, { title: args.title });
