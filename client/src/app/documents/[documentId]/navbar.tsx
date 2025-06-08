@@ -13,6 +13,7 @@ import {
   MenubarTrigger,
 } from "@/components/ui/menubar";
 import { useEditorStore } from "@/store/use-editor-store";
+import { OrganizationSwitcher, UserButton } from "@clerk/clerk-react";
 import {
   BoldIcon,
   FileIcon,
@@ -259,6 +260,15 @@ export const Navbar = () => {
             </Menubar>
           </div>
         </div>
+      </div>
+      <div className="flex items-center gap-3">
+        <OrganizationSwitcher
+          afterCreateOrganizationUrl="/"
+          afterLeaveOrganizationUrl="/"
+          afterSelectOrganizationUrl="/"
+          afterSelectPersonalUrl="/"
+        />
+        <UserButton />
       </div>
     </nav>
   );

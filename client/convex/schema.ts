@@ -1,6 +1,7 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
+// TODO: Add an UpdatedAt field to track when documents are updated
 export default defineSchema({
   documents: defineTable({
     title: v.string(),
