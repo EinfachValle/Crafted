@@ -36,6 +36,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BsFilePdf } from "react-icons/bs";
 
+import { Avatars } from "./avatars";
 import { DocumentInput } from "./document-input";
 
 export const Navbar = () => {
@@ -262,6 +263,7 @@ export const Navbar = () => {
         </div>
       </div>
       <div className="flex items-center gap-3">
+        <Avatars />
         <OrganizationSwitcher
           afterCreateOrganizationUrl="/"
           afterLeaveOrganizationUrl="/"
