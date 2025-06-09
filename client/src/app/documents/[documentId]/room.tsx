@@ -57,10 +57,13 @@ export function Room({ children }: { children: ReactNode }) {
         return await response.json();
       }}
       resolveUsers={({ userIds }) => {
-        return userIds.map(
-          (user) =>
-            users.find((u) => u.id === user) ?? { id: user, name: "Anonymous" },
-        );
+        return userIds.map((userId) => {
+          const user = users.find((u) => u.id === userId);
+          return {
+            name: user?.name ?? "Anonymous",
+            avatar: user?.avatar ?? "",
+          };
+        });
       }}
       resolveMentionSuggestions={({ text }) => {
         let filteredUsers = users;
@@ -85,7 +88,10 @@ export function Room({ children }: { children: ReactNode }) {
     >
       <RoomProvider
         id={params.documentId as string}
-        initialPresence={{ user: { name: "Anonymous" } }}
+        initialStorage={{
+          leftMargin: 56,
+          rightMargin: 56,
+        }}
       >
         <ClientSideSuspense
           fallback={<FullScreenLoader label="Room Loading…" />}
