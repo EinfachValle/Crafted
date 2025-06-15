@@ -1,31 +1,34 @@
-import { Editor } from "./editor";
-import { Navbar } from "./navbar";
-import { Room } from "./room";
-import { Toolbar } from "./toolbar";
+import { auth } from "@clerk/nextjs/server";
+import { preloadQuery } from "convex/nextjs";
+
+import { api } from "../../../../convex/_generated/api";
+import { Id } from "../../../../convex/_generated/dataModel";
+import { Document } from "./document";
 
 interface DocumentIdPageProps {
-  params: Promise<{ documentId: string }>;
+  params: Promise<{ documentId: Id<"documents"> }>;
 }
 
 const DocumentIdPage = async ({ params }: DocumentIdPageProps) => {
   const { documentId } = await params;
 
-  console.log("Document ID:", documentId);
+  const { getToken } = await auth();
 
-  return (
-    <Room>
-      <div className="min-h-screen bg-[#FAFBFD]">
-        {/* Document ID: {documentId} */}
-        <div className="flex flex-col px-4 tp-2 gap-y-2 fixed top-0 left-0 right-0 z-10 bg-[#FAFBFD] print:hidden">
-          <Navbar />
-          <Toolbar />
-        </div>
-        <div className="pt-[114px] print:pt-0">
-          <Editor />
-        </div>
-      </div>
-    </Room>
+  const token = (await getToken({ template: "convex" })) ?? undefined;
+
+  if (!token) {
+    throw new Error(
+      "Authentication token is required to access this document.",
+    );
+  }
+
+  const preloadDocument = await preloadQuery(
+    api.documents.getById,
+    { id: documentId },
+    { token },
   );
+
+  return <Document preloadDoc={preloadDocument} />;
 };
 
 export default DocumentIdPage;
