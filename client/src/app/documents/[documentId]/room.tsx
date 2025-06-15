@@ -19,6 +19,7 @@ type User = {
   id: string;
   name: string | undefined;
   avatar?: string;
+  color?: string;
 };
 
 export function Room({ children }: { children: ReactNode }) {
@@ -63,6 +64,7 @@ export function Room({ children }: { children: ReactNode }) {
           return {
             name: user?.name ?? "Anonymous",
             avatar: user?.avatar ?? "",
+            color: user?.color ?? "#888888", // Provide a default color or derive from user
           };
         });
       }}

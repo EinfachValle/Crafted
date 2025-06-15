@@ -39,7 +39,7 @@ const AvatarStack = () => {
   const users = useOthers();
   const currentUser = useSelf();
 
-  if (users.length === 0 && !currentUser) {
+  if (users.length + (currentUser ? 1 : 0) <= 1) {
     return null;
   }
 
