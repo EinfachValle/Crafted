@@ -105,8 +105,6 @@ export const updateById = mutation({
   handler: async (ctx, args) => {
     const user = await ctx.auth.getUserIdentity();
 
-    console.log("User?", user);
-
     if (!user) {
       throw new ConvexError("Unauthorized");
     }

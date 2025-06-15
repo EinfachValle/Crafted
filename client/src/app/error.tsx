@@ -17,7 +17,7 @@ const ErrorPage = ({ error, reset }: ErrorPageProps) => {
       <div className="text-center space-y-4">
         <div className="flex justify-center">
           <div className="bg-rose-100 p-3 rounded-full">
-            <AlertTriangleIcon className="s-10 text-rose-600" />
+            <AlertTriangleIcon className="size-10 text-rose-600" />
           </div>
         </div>
         <div className="space-y-2">
