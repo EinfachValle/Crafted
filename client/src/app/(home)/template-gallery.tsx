@@ -55,9 +55,8 @@ export const TemplateGallery = () => {
                   <button
                     aria-label={template.label}
                     disabled={isCreating}
-                    // TODO: Add proper inital content
                     onClick={() =>
-                      onTemplateClick(template.label, "template.initialContent")
+                      onTemplateClick(template.label, template.initialContent)
                     }
                     style={{
                       backgroundImage: `url(${template.imageUrl})`,

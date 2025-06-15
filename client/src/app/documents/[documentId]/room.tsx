@@ -3,6 +3,7 @@
 import { ReactNode, useEffect, useMemo, useState } from "react";
 
 import { FullScreenLoader } from "@/components/fullscreen-loader";
+import { DEFAULT_LEFT_MARGIN, DEFAULT_RIGHT_MARGIN } from "@/constants/margins";
 import {
   ClientSideSuspense,
   LiveblocksProvider,
@@ -89,8 +90,8 @@ export function Room({ children }: { children: ReactNode }) {
       <RoomProvider
         id={params.documentId as string}
         initialStorage={{
-          leftMargin: 56,
-          rightMargin: 56,
+          leftMargin: DEFAULT_LEFT_MARGIN,
+          rightMargin: DEFAULT_RIGHT_MARGIN,
         }}
       >
         <ClientSideSuspense
