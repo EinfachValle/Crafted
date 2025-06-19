@@ -1,5 +1,6 @@
 "use client";
 
+import { LanguageSwitch } from "@/components/language-switch";
 import { RemoveDialog } from "@/components/remove-dialog";
 import { RenameDialog } from "@/components/rename-dialog";
 import {
@@ -315,6 +316,7 @@ export const Navbar = ({ data }: NavbarProps) => {
       </div>
       <div className="flex items-center gap-3">
         <Avatars />
+        <LanguageSwitch />
         <ThemeSwitch />
         <Separator orientation="vertical" className="h-6 bg-separator" />
         <Inbox />
