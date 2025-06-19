@@ -47,8 +47,9 @@ export const DocumentRow = ({ document }: DocumentRowProps) => {
         {format(new Date(document._creationTime), "MMM dd, yyyy")}
       </TableCell>
       <TableCell className="text-muted-foreground hidden md:table-cell">
-        {/* TODO: Add _updateTime here */}
-        {format(new Date(document._creationTime), "MMM dd, yyyy")}
+        {document.updatedAt
+          ? format(new Date(document.updatedAt), "MMM dd, yyyy")
+          : format(new Date(document._creationTime), "MMM dd, yyyy")}
       </TableCell>
       <TableCell className="flex ml-auto justify-end">
         <DocumentMenu

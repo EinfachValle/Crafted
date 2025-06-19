@@ -17,11 +17,15 @@ export const create = mutation({
 
     const orgaId = (user?.organization_id ?? undefined) as string | undefined;
 
+    const now = Date.now();
+
     return await ctx.db.insert("documents", {
       title: args.title ?? "Untitled Document",
       ownerId: user.subject,
       organizationId: orgaId,
       initialContent: args.initialContent,
+      createdAt: now,
+      updatedAt: now,
     });
   },
 });
@@ -124,7 +128,10 @@ export const updateById = mutation({
       throw new ConvexError("Unauthorized to update this document");
     }
 
-    return await ctx.db.patch(args.id, { title: args.title });
+    return await ctx.db.patch(args.id, {
+      title: args.title,
+      updatedAt: Date.now(),
+    });
   },
 });
 
