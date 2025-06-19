@@ -41,11 +41,11 @@ body {
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
-    --gallery-background: 200, 12%, 95%;
-    --separator: 0, 0%, 83%;
-    --contrast: 0, 0%, 100%;
-    --document-background: 220, 43%, 99%;
-    --document-editor: 210, 50%, 98%;
+    --gallery-background: 200 12% 95%;
+    --separator: 0 0% 83%;
+    --contrast: 0 0% 100%;
+    --document-background: 220 43% 99%;
+    --document-editor: 210 50% 98%;
     --document-hover: 0 0% 80% / 0.8;
   }
   .dark {
@@ -82,8 +82,8 @@ body {
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
     --gallery-background: 0 0% 10%;
-    --separator: 0, 0%, 17%;
-    --contrast: 0, 0%, 0%;
+    --separator: 0 0% 17%;
+    --contrast: 0 0% 0%;
     --document-background: 220 43% 1%;
     --document-editor: 210 50% 2%;
     --document-hover: 0 0% 20% / 0.8;
