@@ -13,12 +13,14 @@ import { templates } from "@/constants/templates";
 import { cn } from "@/lib/utils";
 import { useMutation } from "convex/react";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 
 import { api } from "../../../convex/_generated/api";
 
 export const TemplateGallery = () => {
   const router = useRouter();
   const create = useMutation(api.documents.create);
+  const { t } = useTranslation();
   const [isCreating, setIsCreating] = useState(false);
 
   const onTemplateClick = (title: string, initialContent?: string) => {
@@ -38,10 +40,10 @@ export const TemplateGallery = () => {
   return (
     <div className="bg-gallery-background">
       <div className="max-w-screen-xl mx-auto px-16 py-6 flex flex-col gap-y-4">
-        <h3 className="font-medium">Start a new document</h3>
+        <h3 className="font-medium">{t("documents.Create a new document")}</h3>
         <Carousel>
           <CarouselContent className="-ml-4">
-            {templates.map((template) => (
+            {templates(t).map((template) => (
               <CarouselItem
                 key={template.id}
                 className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6 2xl:basis-[14.285714%] pl-4"

@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useMutation } from "convex/react";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
 import { api } from "../../convex/_generated/api";
@@ -28,6 +29,7 @@ interface RemoveDialogProps {
 export const RemoveDialog = ({ documentId, children }: RemoveDialogProps) => {
   const removeDocument = useMutation(api.documents.removeById);
   const router = useRouter();
+  const { t } = useTranslation();
 
   const [isRemoving, setIsRemoving] = useState(false);
 
@@ -36,15 +38,14 @@ export const RemoveDialog = ({ documentId, children }: RemoveDialogProps) => {
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
       <AlertDialogContent onClick={(e) => e.stopPropagation()}>
         <AlertDialogHeader>
-          <AlertDialogTitle>Remove Document</AlertDialogTitle>
+          <AlertDialogTitle>{t("modal.Remove Document")}</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to remove this document? This action cannot be
-            undone.
+            {t("modal.Ask for confirmation before delete")}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel onClick={(e) => e.stopPropagation()}>
-            Cancel
+            {t("general.Cancel")}
           </AlertDialogCancel>
           <AlertDialogAction
             disabled={isRemoving}
@@ -54,11 +55,11 @@ export const RemoveDialog = ({ documentId, children }: RemoveDialogProps) => {
               removeDocument({ id: documentId })
                 .then(() => {
                   setIsRemoving(false);
-                  toast.success("Document removed successfully");
+                  toast.success(t("toast.Document removed successfully"));
                 })
                 .catch(() => {
                   setIsRemoving(false);
-                  toast.error("Failed to remove document");
+                  toast.error(t("toast.Failed to remove document"));
                 })
                 .finally(() => {
                   setIsRemoving(false);
@@ -66,7 +67,7 @@ export const RemoveDialog = ({ documentId, children }: RemoveDialogProps) => {
               router.push("/");
             }}
           >
-            Delete
+            {t("general.Delete")}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

@@ -45,11 +45,13 @@ import {
   RemoveFormattingIcon,
   SearchIcon,
   SpellCheckIcon,
+  StrikethroughIcon,
   UnderlineIcon,
   Undo2Icon,
   UploadIcon,
 } from "lucide-react";
 import { type ColorResult, SketchPicker } from "react-color";
+import { useTranslation } from "react-i18next";
 
 const LineHeightButton = () => {
   const { editor } = useEditorStore();
@@ -178,24 +180,25 @@ const FontSizeButton = () => {
 
 const ListButton = () => {
   const { editor } = useEditorStore();
+  const { t } = useTranslation();
 
   const lists = [
     {
-      label: "Bullet List",
+      label: t("editor.Bullet List"),
       value: "bulletList",
       icon: ListIcon,
       isActive: () => editor?.isActive("bulletList"),
       onClick: () => editor?.chain().focus().toggleBulletList().run(),
     },
     {
-      label: "Ordered List",
+      label: t("editor.Ordered List"),
       value: "orderedList",
       icon: ListOrderedIcon,
       isActive: () => editor?.isActive("orderedList"),
       onClick: () => editor?.chain().focus().toggleOrderedList().run(),
     },
     {
-      label: "Todo List",
+      label: t("editor.Todo List"),
       value: "taskList",
       icon: ListTodoIcon,
       isActive: () => editor?.isActive("taskList"),
@@ -231,12 +234,13 @@ const ListButton = () => {
 
 const AlignButton = () => {
   const { editor } = useEditorStore();
+  const { t } = useTranslation();
 
   const alignments = [
-    { label: "Left", value: "left", icon: AlignLeftIcon },
-    { label: "Center", value: "center", icon: AlignCenterIcon },
-    { label: "Right", value: "right", icon: AlignRightIcon },
-    { label: "Justify", value: "justify", icon: AlignJustifyIcon },
+    { label: t("editor.Left"), value: "left", icon: AlignLeftIcon },
+    { label: t("editor.Center"), value: "center", icon: AlignCenterIcon },
+    { label: t("editor.Right"), value: "right", icon: AlignRightIcon },
+    { label: t("editor.Justify"), value: "justify", icon: AlignJustifyIcon },
   ];
 
   return (
@@ -267,6 +271,7 @@ const AlignButton = () => {
 
 const ImageButton = () => {
   const { editor } = useEditorStore();
+  const { t } = useTranslation();
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
@@ -308,11 +313,11 @@ const ImageButton = () => {
         <DropdownMenuContent className="p-2.5 flex items-center gap-x-2">
           <DropdownMenuItem onClick={onUpload}>
             <UploadIcon className="size-4 mr-2" />
-            Upload
+            {t("general.Upload")}
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setIsDialogOpen(true)}>
             <SearchIcon className="size-4 mr-2" />
-            Paste Image URL
+            {t("editor.Paste Image URL")}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -320,7 +325,7 @@ const ImageButton = () => {
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Insert Image URL</DialogTitle>
+            <DialogTitle>{t("editor.Insert Image")}</DialogTitle>
           </DialogHeader>
           <Input
             placeholder="https://example.com/image.jpg"
@@ -329,7 +334,9 @@ const ImageButton = () => {
             onKeyDown={(e) => e.key === "Enter" && handleImageUrlSubmit()}
           />
           <DialogFooter>
-            <Button onClick={handleImageUrlSubmit}>Insert</Button>
+            <Button onClick={handleImageUrlSubmit}>
+              {t("general.Insert")}
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -339,6 +346,7 @@ const ImageButton = () => {
 
 const LinkButton = () => {
   const { editor } = useEditorStore();
+  const { t } = useTranslation();
 
   const [value, setValue] = useState("");
 
@@ -366,7 +374,7 @@ const LinkButton = () => {
           value={value}
           onChange={(e) => setValue(e.target.value)}
         />
-        <Button onClick={() => onChange(value)}>Save</Button>
+        <Button onClick={() => onChange(value)}>{t("general.Save")}</Button>
       </DropdownMenuContent>
     </DropdownMenu>
   );
@@ -421,6 +429,7 @@ const TextColorButton = () => {
 
 const HeadingLevelButton = () => {
   const { editor } = useEditorStore();
+  const { t } = useTranslation();
 
   const headings = [
     { label: "Normal Text", value: 0, fontSize: "16px" },
@@ -435,11 +444,11 @@ const HeadingLevelButton = () => {
   const getCurrentHeading = () => {
     for (let level = 1; level <= 6; level++) {
       if (editor?.isActive(`heading`, { level })) {
-        return `Heading ${level}`;
+        return t(`editor.Heading ${level}`);
       }
     }
 
-    return "Normal Text";
+    return t("editor.Normal Text");
   };
 
   return (
@@ -473,7 +482,7 @@ const HeadingLevelButton = () => {
                   "bg-document-hover"),
             )}
           >
-            {label}
+            {t(`editor.${label}`)}
           </button>
         ))}
       </DropdownMenuContent>
@@ -553,6 +562,7 @@ const ToolbarButton = ({
 
 export const Toolbar = () => {
   const { editor } = useEditorStore();
+  const { t } = useTranslation();
 
   const sections: {
     label: string;
@@ -562,22 +572,22 @@ export const Toolbar = () => {
   }[][] = [
     [
       {
-        label: "Undo",
+        label: t("editor.Undo"),
         icon: Undo2Icon,
         onClick: () => editor?.chain().focus().undo().run(),
       },
       {
-        label: "Redo",
+        label: t("editor.Redo"),
         icon: Redo2Icon,
         onClick: () => editor?.chain().focus().redo().run(),
       },
       {
-        label: "Print",
+        label: t("editor.Print"),
         icon: PrinterIcon,
         onClick: () => window.print(),
       },
       {
-        label: "Spell Checker",
+        label: t("editor.Spell Checker"),
         icon: SpellCheckIcon,
         onClick: () => {
           const current = editor?.view.dom.getAttribute("spellcheck");
@@ -590,44 +600,46 @@ export const Toolbar = () => {
     ],
     [
       {
-        label: "Bold",
+        label: t("editor.Bold"),
         icon: BoldIcon,
         isActive: editor?.isActive("bold"),
         onClick: () => editor?.chain().focus().toggleBold().run(),
       },
       {
-        label: "Italic",
+        label: t("editor.Italic"),
         icon: ItalicIcon,
         isActive: editor?.isActive("italic"),
         onClick: () => editor?.chain().focus().toggleItalic().run(),
       },
       {
-        label: "Underline",
+        label: t("editor.Underline"),
         icon: UnderlineIcon,
         isActive: editor?.isActive("underline"),
         onClick: () => editor?.chain().focus().toggleUnderline().run(),
       },
+      {
+        label: t("editor.Strikethrough"),
+        icon: StrikethroughIcon,
+        isActive: editor?.isActive("strikethrough"),
+        onClick: () => editor?.chain().focus().toggleStrike().run(),
+      },
     ],
     [
       {
-        label: "Comment",
+        label: t("editor.Comment"),
         icon: MessageSquarePlusIcon,
         isActive: editor?.isActive("liveblocksCommentMark"),
         onClick: () => editor?.chain().focus().addPendingComment().run(),
       },
-      // {
-      //   label: "List Todo",
-      //   icon: ListTodoIcon,
-      //   isActive: editor?.isActive("taskList"),
-      //   onClick: () => editor?.chain().focus().toggleTaskList().run(),
-      // },
       {
-        label: "Remove Formatting",
+        label: t("editor.Remove Formatting"),
         icon: RemoveFormattingIcon,
         onClick: () => editor?.chain().focus().unsetAllMarks().run(),
       },
     ],
   ];
+
+  // TODO: Add Strikethrough & Code into toolbar
 
   return (
     <div className="bg-gallery-background px-2.5 py-0.5 rounded-[8px] min-h-[40px] flex items-center gap-x-0.5 overflow-x-auto">

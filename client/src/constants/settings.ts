@@ -3,3 +3,8 @@ export const THEME = {
   LIGHT: "light",
   SYSTEM: "system",
 };
+
+export const LANGUAGE = {
+  ENGLISH: "en",
+  GERMAN: "de",
+};

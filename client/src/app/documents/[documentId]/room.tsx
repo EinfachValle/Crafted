@@ -10,6 +10,7 @@ import {
   RoomProvider,
 } from "@liveblocks/react/suspense";
 import { useParams } from "next/navigation";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
 import { Id } from "../../../../convex/_generated/dataModel";
@@ -24,6 +25,7 @@ type User = {
 
 export function Room({ children }: { children: ReactNode }) {
   const params = useParams();
+  const { t } = useTranslation();
 
   const [users, setUsers] = useState<User[]>([]);
 
@@ -97,7 +99,7 @@ export function Room({ children }: { children: ReactNode }) {
         }}
       >
         <ClientSideSuspense
-          fallback={<FullScreenLoader label="Room Loading…" />}
+          fallback={<FullScreenLoader label={t("loading.Room")} />}
         >
           {children}
         </ClientSideSuspense>

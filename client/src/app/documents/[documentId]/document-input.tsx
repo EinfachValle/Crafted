@@ -4,6 +4,7 @@ import { useDebounce } from "@/hooks/use-debounce";
 import { useStatus } from "@liveblocks/react";
 import { useMutation } from "convex/react";
 import { LoaderIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { BsCloudCheck, BsCloudSlash } from "react-icons/bs";
 import { toast } from "sonner";
 
@@ -17,6 +18,7 @@ interface DocumentInputProps {
 
 export const DocumentInput = ({ title, id }: DocumentInputProps) => {
   const status = useStatus();
+  const { t } = useTranslation();
 
   const [value, setValue] = useState(title);
   const [isPending, setIsPending] = useState(false);
@@ -32,10 +34,10 @@ export const DocumentInput = ({ title, id }: DocumentInputProps) => {
     setIsPending(true);
     mutate({ id, title: newValue })
       .then(() => {
-        toast.success("Document title updated successfully");
+        toast.success(t("toast.Document renamed successfully"));
       })
       .catch(() => {
-        toast.error("Failed to update document title");
+        toast.error(t("toast.Failed to update document title"));
       })
       .finally(() => {
         setIsPending(false);
@@ -62,10 +64,10 @@ export const DocumentInput = ({ title, id }: DocumentInputProps) => {
     mutate({ id, title: value })
       .then(() => {
         setIsEditing(false);
-        toast.success("Document title updated successfully");
+        toast.success(t("toast.Document renamed successfully"));
       })
       .catch(() => {
-        toast.error("Failed to update document title");
+        toast.error(t("toast.Failed to update document title"));
       })
       .finally(() => {
         setIsPending(false);
@@ -96,7 +98,7 @@ export const DocumentInput = ({ title, id }: DocumentInputProps) => {
           onClick={handleEditTitle}
           className="text-lg px-1.5 cursor-pointer truncate"
         >
-          {title ?? "Untitled Document"}
+          {title ?? t("documents.Untitled Document")}
         </span>
       )}
       {showError && <BsCloudSlash className="size-4" />}
