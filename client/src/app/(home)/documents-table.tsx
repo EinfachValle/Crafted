@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/table";
 import { PaginationStatus } from "convex/react";
 import { LoaderIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import { Doc } from "../../../convex/_generated/dataModel";
 import { DocumentRow } from "./document-row";
@@ -26,6 +27,8 @@ export const DocumentsTable = ({
   loadMore,
   status,
 }: DocumentsTableProps) => {
+  const { t } = useTranslation();
+
   return (
     <div className="max-w-screen-xl mx-auto px-16 py-6 flex flex-col gap-5">
       {documents === undefined ? (
@@ -36,11 +39,17 @@ export const DocumentsTable = ({
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Name</TableHead>
+              <TableHead>{t("general.Name")}</TableHead>
               <TableHead>&nbsp;</TableHead>
-              <TableHead className="hidden md:table-cell">Shared</TableHead>
-              <TableHead className="hidden md:table-cell">Created at</TableHead>
-              <TableHead className="hidden md:table-cell">Updated at</TableHead>
+              <TableHead className="hidden md:table-cell">
+                {t("general.Shared")}
+              </TableHead>
+              <TableHead className="hidden md:table-cell">
+                {t("general.Created At")}
+              </TableHead>
+              <TableHead className="hidden md:table-cell">
+                {t("general.Updated At")}
+              </TableHead>
             </TableRow>
           </TableHeader>
           {documents?.length === 0 ? (
@@ -50,7 +59,7 @@ export const DocumentsTable = ({
                   colSpan={5}
                   className="h-24 text-center text-muted-foreground"
                 >
-                  No documents found.
+                  {t("documents.No documents found")}
                 </TableCell>
               </TableRow>
             </TableBody>
@@ -64,7 +73,6 @@ export const DocumentsTable = ({
         </Table>
       )}
       <div className="flex justify-center items-center">
-        {/* TODO: Add Constant names for 'CanLoadMore' */}
         {/* TODO: Add loadMore conditionally on screen size */}
         <Button
           variant="ghost"
@@ -72,7 +80,9 @@ export const DocumentsTable = ({
           onClick={() => loadMore(15)}
           disabled={status !== "CanLoadMore"}
         >
-          {status === "CanLoadMore" ? "Load More" : "End of Results"}
+          {status === "CanLoadMore"
+            ? t("general.Load More")
+            : t("general.End of Results")}
         </Button>
       </div>
     </div>

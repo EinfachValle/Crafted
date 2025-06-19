@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import type { Config } from "tailwindcss";
 
 export default {
@@ -60,6 +61,16 @@ export default {
           "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
+        },
+        gallery: {
+          background: "hsl(var(--gallery-background))",
+        },
+        separator: "hsl(var(--separator))",
+        contrast: "hsl(var(--contrast))",
+        document: {
+          background: "hsl(var(--document-background))",
+          editor: "hsl(var(--document-editor))",
+          hover: "hsl(var(--document-hover))",
         },
       },
       borderRadius: {

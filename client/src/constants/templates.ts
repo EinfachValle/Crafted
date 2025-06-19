@@ -1,15 +1,17 @@
-export const templates = [
+import { TFunction } from "i18next";
+
+export const templates = (t: TFunction<"translation", undefined>) => [
   {
     id: "blank",
-    label: "Blank Document",
-    description: "Start with a blank document.",
+    label: t("documents.Blank Document"),
+    description: t("documents.Blank Document description"),
     imageUrl: "/blank-document.svg",
     initialContent: ``,
   },
   {
     id: "software-proposal",
-    label: "Software Development Proposal",
-    description: "Create a proposal for your software project.",
+    label: t("documents.Software Development Proposal"),
+    description: t("documents.Software Development Proposal description"),
     imageUrl: "/software-proposal.svg",
     initialContent: `
       <h1>Software Development Proposal</h1>
@@ -39,8 +41,8 @@ export const templates = [
   },
   {
     id: "project-proposal",
-    label: "Project Proposal",
-    description: "Create a proposal for your project.",
+    label: t("documents.Project Proposal"),
+    description: t("documents.Project Proposal description"),
     imageUrl: "/project-proposal.svg",
     initialContent: `
       <h1>Project Proposal</h1>
@@ -68,8 +70,8 @@ export const templates = [
   },
   {
     id: "business-letter",
-    label: "Business Letter",
-    description: "Write a formal business letter.",
+    label: t("documents.Business Letter"),
+    description: t("documents.Business Letter description"),
     imageUrl: "/business-letter.svg",
     initialContent: `
       <p>[Your Name]  
@@ -99,8 +101,8 @@ export const templates = [
   },
   {
     id: "resume",
-    label: "Resume",
-    description: "Create a professional resume.",
+    label: t("documents.Resume"),
+    description: t("documents.Resume description"),
     imageUrl: "/resume.svg",
     initialContent: `
       <h1>[Your Full Name]</h1>
@@ -130,8 +132,8 @@ export const templates = [
   },
   {
     id: "cover-letter",
-    label: "Cover Letter",
-    description: "Write a compelling cover letter.",
+    label: t("documents.Cover Letter"),
+    description: t("documents.Cover Letter description"),
     imageUrl: "/cover-letter.svg",
     initialContent: `
       <p>[Your Name]  
@@ -160,8 +162,8 @@ export const templates = [
   },
   {
     id: "letter",
-    label: "Letter",
-    description: "Write a personal or formal letter.",
+    label: t("documents.Letter of Recommendation"),
+    description: t("documents.Letter of Recommendation description"),
     imageUrl: "/letter.svg",
     initialContent: `
       <p>[Your Name]  

@@ -13,9 +13,11 @@ import { ClientSideSuspense } from "@liveblocks/react";
 import { InboxNotification, InboxNotificationList } from "@liveblocks/react-ui";
 import { useInboxNotifications } from "@liveblocks/react/suspense";
 import { BellIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const InboxMenu = () => {
   const { inboxNotifications } = useInboxNotifications();
+  const { t } = useTranslation();
 
   return (
     <Fragment>
@@ -24,7 +26,7 @@ const InboxMenu = () => {
           <Button variant="ghost" className="relative" size="icon">
             <BellIcon className="size-5" />
             {inboxNotifications.length > 0 && (
-              <span className="absolute -top-1 -right-1 size-4 rounded-full bg-sky-500 text-xs text-white flex items-center justify-center">
+              <span className="absolute -top-1 -right-1 size-4 rounded-full bg-sky-500 text-xs text-white text-bold flex items-center justify-center">
                 {inboxNotifications.length}
               </span>
             )}
@@ -33,7 +35,7 @@ const InboxMenu = () => {
         <DropdownMenuContent align="end" className="w-auto">
           {inboxNotifications.length === 0 ? (
             <div className="p-2 w-[400px] text-center text-sm text-muted-foreground">
-              No Notifications
+              {t("toast.No Notifications")}
             </div>
           ) : (
             <InboxNotificationList>
@@ -44,7 +46,7 @@ const InboxMenu = () => {
           )}
         </DropdownMenuContent>
       </DropdownMenu>
-      <Separator orientation="vertical" className="h-6" />
+      <Separator orientation="vertical" className="h-6 bg-separator" />
     </Fragment>
   );
 };

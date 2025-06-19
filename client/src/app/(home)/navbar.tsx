@@ -1,6 +1,10 @@
+import { LanguageSwitch } from "@/components/language-switch";
+import { Separator } from "@/components/ui/separator";
 import { OrganizationSwitcher, UserButton } from "@clerk/clerk-react";
 import Image from "next/image";
 import Link from "next/link";
+
+import { ThemeSwitch } from "@/components/theme-switch";
 
 import { SearchInput } from "./search-input";
 
@@ -17,10 +21,13 @@ export const Navbar = () => {
             className="cursor-pointer"
           />
         </Link>
-        <h3 className="text-xl">Crafted</h3>
+        <h3 className="text-xl font-medium">Crafted</h3>
       </div>
       <SearchInput />
       <div className="flex items-center gap-3 max-sm:pl-6">
+        <LanguageSwitch />
+        <ThemeSwitch />
+        <Separator orientation="vertical" className="h-6 bg-separator" />
         <OrganizationSwitcher
           afterCreateOrganizationUrl="/"
           afterLeaveOrganizationUrl="/"
