@@ -17,8 +17,9 @@ export const LanguageSwitch = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="icon" className="size-7">
+          <LanguagesIcon className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
           <LanguagesIcon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
-          <span className="sr-only">{t("general.Toggle Theme")}</span>
+          <span className="sr-only">{t("general.Toggle Language")}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
@@ -29,7 +30,7 @@ export const LanguageSwitch = () => {
           }}
         >
           <LanguagesIcon />
-          EN
+          {t("general.English")}
         </DropdownMenuItem>
         <DropdownMenuItem
           className="hover:cursor-pointer"
@@ -38,7 +39,7 @@ export const LanguageSwitch = () => {
           }}
         >
           <LanguagesIcon />
-          DE
+          {t("general.German")}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

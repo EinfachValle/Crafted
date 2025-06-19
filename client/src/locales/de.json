@@ -4,6 +4,7 @@
     "Dark Theme": "Dunkel",
     "System Theme": "System",
     "Toggle Theme": "Design umschalten",
+    "Toggle Language": "Sprache umschalten",
     "Cancel": "Abbrechen",
     "Save": "Speichern",
     "Delete": "Löschen",
@@ -20,7 +21,9 @@
     "End of Results": "Ende der Ergebnisse",
     "Search": "Suche",
     "Upload": "Hochladen",
-    "Insert": "Einfügen"
+    "Insert": "Einfügen",
+    "English": "Englisch",
+    "German": "Deutsch"
   },
   "loading": {
     "Auth": "Authentifizierung läuft…",

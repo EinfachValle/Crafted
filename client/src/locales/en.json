@@ -4,6 +4,7 @@
     "Dark Theme": "Dark",
     "System Theme": "System",
     "Toggle Theme": "Toggle Theme",
+    "Toggle Language": "Toggle Language",
     "Cancel": "Cancel",
     "Save": "Save",
     "Delete": "Delete",
@@ -20,7 +21,9 @@
     "End of Results": "End of Results",
     "Search": "Search",
     "Upload": "Upload",
-    "Insert": "Insert"
+    "Insert": "Insert",
+    "English": "English",
+    "German": "German"
   },
   "loading": {
     "Auth": "Authenticating…",
