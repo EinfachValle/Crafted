@@ -20,7 +20,7 @@ export const Navbar = () => {
             className="cursor-pointer"
           />
         </Link>
-        <h3 className="text-xl">Crafted</h3>
+        <h3 className="text-xl font-medium">Crafted</h3>
       </div>
       <SearchInput />
       <div className="flex items-center gap-3 max-sm:pl-6">

@@ -39,6 +39,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 import { BsFilePdf } from "react-icons/bs";
 import { toast } from "sonner";
 
@@ -57,6 +58,7 @@ interface NavbarProps {
 export const Navbar = ({ data }: NavbarProps) => {
   const router = useRouter();
   const { editor } = useEditorStore();
+  const { t } = useTranslation();
 
   const mutation = useMutation(api.documents.create);
 
@@ -66,10 +68,10 @@ export const Navbar = ({ data }: NavbarProps) => {
       initialContent: "",
     })
       .catch(() => {
-        toast.error("Failed to create new document");
+        toast.error(t("toast.Failed to create document"));
       })
       .then((id) => {
-        toast.success("New document created");
+        toast.success(t("toast.Document created successfully"));
         router.push(`/documents/${id}`);
       });
   };
@@ -133,13 +135,13 @@ export const Navbar = ({ data }: NavbarProps) => {
               {/* File: */}
               <MenubarMenu>
                 <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted h-auto">
-                  File
+                  {t("editor.File")}
                 </MenubarTrigger>
                 <MenubarContent className="print:hidden">
                   <MenubarSub>
                     <MenubarSubTrigger>
                       <FileIcon className="size-4 mr-2" />
-                      Save
+                      {t("general.Save")}
                     </MenubarSubTrigger>
                     <MenubarSubContent>
                       <MenubarItem onClick={onSaveJSON}>
@@ -162,7 +164,7 @@ export const Navbar = ({ data }: NavbarProps) => {
                   </MenubarSub>
                   <MenubarItem onClick={onNewDocument}>
                     <FilePlusIcon className="size-4 mr-2" />
-                    New Document
+                    {t("editor.New Document")}
                   </MenubarItem>
                   <MenubarSeparator />
                   <RenameDialog documentId={data._id} initialTitle={data.title}>
@@ -171,7 +173,7 @@ export const Navbar = ({ data }: NavbarProps) => {
                       onSelect={(e) => e.preventDefault()}
                     >
                       <FilePenIcon className="size-4 mr-2" />
-                      Rename
+                      {t("general.Rename")}
                     </MenubarItem>
                   </RenameDialog>
                   <RemoveDialog documentId={data._id}>
@@ -180,21 +182,22 @@ export const Navbar = ({ data }: NavbarProps) => {
                       onSelect={(e) => e.preventDefault()}
                     >
                       <TrashIcon className="size-4 mr-2" />
-                      Remove
+                      {t("general.Delete")}
                     </MenubarItem>
                   </RemoveDialog>
                   <MenubarSeparator />
                   <MenubarItem onClick={() => window.print()}>
                     <PrinterIcon className="size-4 mr-2" />
-                    {/* Check which mashine for shortcut */}
-                    Print <MenubarShortcut>Ctrl + P</MenubarShortcut>
+                    {/* TODO: Check which mashine for shortcut */}
+                    {t("editor.Print")}
+                    <MenubarShortcut>Ctrl + P</MenubarShortcut>
                   </MenubarItem>
                 </MenubarContent>
               </MenubarMenu>
               {/* Edit: */}
               <MenubarMenu>
                 <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted h-auto">
-                  Edit
+                  {t("editor.Edit")}
                 </MenubarTrigger>
                 <MenubarContent>
                   <MenubarItem
@@ -203,7 +206,8 @@ export const Navbar = ({ data }: NavbarProps) => {
                     }}
                   >
                     <Undo2Icon className="size-4 mr-2" />
-                    Undo <MenubarShortcut>Ctrl + Z</MenubarShortcut>
+                    {t("editor.Undo")}
+                    <MenubarShortcut>Ctrl + Z</MenubarShortcut>
                   </MenubarItem>
                   <MenubarItem
                     onClick={() => {
@@ -211,18 +215,20 @@ export const Navbar = ({ data }: NavbarProps) => {
                     }}
                   >
                     <Redo2Icon className="size-4 mr-2" />
-                    Redo <MenubarShortcut>Ctrl + Y</MenubarShortcut>
+                    {t("editor.Redo")}
+                    <MenubarShortcut>Ctrl + Y</MenubarShortcut>
                   </MenubarItem>
                 </MenubarContent>
               </MenubarMenu>
               {/* Insert: */}
+              {/* TODO: Made better table with mapping or choosing like JB Space */}
               <MenubarMenu>
                 <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted h-auto">
-                  Insert
+                  {t("editor.Insert")}
                 </MenubarTrigger>
                 <MenubarContent>
                   <MenubarSub>
-                    <MenubarSubTrigger>Table</MenubarSubTrigger>
+                    <MenubarSubTrigger>{t("editor.Table")}</MenubarSubTrigger>
                     <MenubarSubContent>
                       <MenubarItem
                         onClick={() => insertTable({ rows: 1, cols: 1 })}
@@ -246,7 +252,7 @@ export const Navbar = ({ data }: NavbarProps) => {
               {/* Format: */}
               <MenubarMenu>
                 <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted h-auto">
-                  Format
+                  {t("editor.Format")}
                 </MenubarTrigger>
                 <MenubarContent>
                   <MenubarSub>
@@ -261,7 +267,8 @@ export const Navbar = ({ data }: NavbarProps) => {
                         }
                       >
                         <BoldIcon className="size-4 mr-2" />
-                        Bold <MenubarShortcut>Ctrl + B</MenubarShortcut>
+                        {t("editor.Bold")}
+                        <MenubarShortcut>Ctrl + B</MenubarShortcut>
                       </MenubarItem>
                       <MenubarItem
                         onClick={() =>
@@ -269,7 +276,8 @@ export const Navbar = ({ data }: NavbarProps) => {
                         }
                       >
                         <ItalicIcon className="size-4 mr-2" />
-                        Italic <MenubarShortcut>Ctrl + I</MenubarShortcut>
+                        {t("editor.Italic")}
+                        <MenubarShortcut>Ctrl + I</MenubarShortcut>
                       </MenubarItem>
                       <MenubarItem
                         onClick={() =>
@@ -277,7 +285,8 @@ export const Navbar = ({ data }: NavbarProps) => {
                         }
                       >
                         <UnderlineIcon className="size-4 mr-2" />
-                        Underline <MenubarShortcut>Ctrl + U</MenubarShortcut>
+                        {t("editor.Underline")}
+                        <MenubarShortcut>Ctrl + U</MenubarShortcut>
                       </MenubarItem>
                       <MenubarItem
                         onClick={() =>
@@ -285,7 +294,7 @@ export const Navbar = ({ data }: NavbarProps) => {
                         }
                       >
                         <StrikethroughIcon className="size-4 mr-2" />
-                        Strikethrough&nbsp;&nbsp;
+                        {t("editor.Strikethrough")}&nbsp;&nbsp;
                         <MenubarShortcut>Ctrl + Shift + S</MenubarShortcut>
                       </MenubarItem>
                     </MenubarSubContent>
@@ -296,7 +305,7 @@ export const Navbar = ({ data }: NavbarProps) => {
                     }
                   >
                     <RemoveFormattingIcon className="size-4 mr-2" />
-                    Remove Format
+                    {t("editor.Remove Formatting")}
                   </MenubarItem>
                 </MenubarContent>
               </MenubarMenu>

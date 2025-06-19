@@ -11,6 +11,7 @@ import {
   Unauthenticated,
 } from "convex/react";
 import { ConvexProviderWithClerk } from "convex/react-clerk";
+import { useTranslation } from "react-i18next";
 
 import { dark } from "@clerk/themes";
 import { useTheme } from "next-themes";
@@ -21,6 +22,7 @@ const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
 export function ConvexClientProvider({ children }: { children: ReactNode }) {
   const { resolvedTheme } = useTheme();
+  const { t } = useTranslation();
 
   const isDarkTheme = resolvedTheme === THEME.DARK ? dark : undefined;
 
@@ -39,7 +41,7 @@ export function ConvexClientProvider({ children }: { children: ReactNode }) {
           </div>
         </Unauthenticated>
         <AuthLoading>
-          <FullScreenLoader label="Auth Loading..." />
+          <FullScreenLoader label={t("loading.Auth")} />
         </AuthLoading>
       </ConvexProviderWithClerk>
     </ClerkProvider>

@@ -13,6 +13,7 @@ import {
   MoreVertical,
   TrashIcon,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import { Id } from "../../../convex/_generated/dataModel";
 
@@ -27,6 +28,8 @@ export const DocumentMenu = ({
   title,
   onNewTab,
 }: DocumentMenuProps) => {
+  const { t } = useTranslation();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -37,7 +40,7 @@ export const DocumentMenu = ({
       <DropdownMenuContent>
         <DropdownMenuItem onClick={() => onNewTab(documentId)}>
           <ExternalLinkIcon className="size-4 mr-2" />
-          Open in new tab
+          {t("general.Open in New Tab")}
         </DropdownMenuItem>
         <RenameDialog documentId={documentId} initialTitle={title}>
           <DropdownMenuItem
@@ -45,7 +48,7 @@ export const DocumentMenu = ({
             onClick={(e) => e.stopPropagation()}
           >
             <EditIcon className="size-4 mr-2" />
-            Rename
+            {t("general.Rename")}
           </DropdownMenuItem>
         </RenameDialog>
         <RemoveDialog documentId={documentId}>
@@ -54,7 +57,7 @@ export const DocumentMenu = ({
             onClick={(e) => e.stopPropagation()}
           >
             <TrashIcon className="size-4 mr-2" />
-            Remove
+            {t("general.Delete")}
           </DropdownMenuItem>
         </RemoveDialog>
       </DropdownMenuContent>
