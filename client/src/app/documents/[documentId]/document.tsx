@@ -17,8 +17,8 @@ export const Document = ({ preloadDoc }: DocumentProps) => {
 
   return (
     <Room>
-      <div className="min-h-screen bg-[#FAFBFD]">
-        <div className="flex flex-col px-4 pt-2 tp-2 gap-y-2 fixed top-0 left-0 right-0 z-10 bg-[#FAFBFD] print:hidden">
+      <div className="min-h-screen bg-document-background">
+        <div className="flex flex-col px-4 pt-2 tp-2 gap-y-2 fixed top-0 left-0 right-0 z-10 bg-document-background print:hidden">
           <Navbar data={document} />
           <Toolbar />
         </div>

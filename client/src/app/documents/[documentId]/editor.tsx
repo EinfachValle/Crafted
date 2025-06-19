@@ -43,6 +43,7 @@ export const Editor = ({ initialContent }: EditorProps) => {
   const rightMargin = useStorage((root) => root.rightMargin);
 
   const editor = useEditor({
+    autofocus: true,
     immediatelyRender: false,
     onCreate({ editor }) {
       setEditor(editor);
@@ -72,7 +73,7 @@ export const Editor = ({ initialContent }: EditorProps) => {
       attributes: {
         style: `padding-left: ${leftMargin ?? DEFAULT_LEFT_MARGIN}px; padding-right: ${rightMargin ?? DEFAULT_RIGHT_MARGIN}px;`,
         class:
-          "focus:outline-none print:border-0 bg-white border border-[#C7C7C7] flex flex-col min-h-[1054px] w-[816px] pt-10 pr-14 pb-10 cursor-text",
+          "focus:outline-none print:border-0 bg-white border border-[#C7C7C7] flex flex-col min-h-[1054px] w-[816px] pt-10 pr-14 pb-10 cursor-text text-black",
       },
     },
     extensions: [
@@ -115,7 +116,7 @@ export const Editor = ({ initialContent }: EditorProps) => {
   });
 
   return (
-    <div className="size-full overflow-x-auto bg-[#F9FBFD] px-4 print:p-0 print:bg-white print:overflow-visible">
+    <div className="size-full overflow-x-auto bg-document-editor px-4 print:p-0 print:bg-white print:overflow-visible">
       <Ruler />
       <div className="min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-full">
         <EditorContent editor={editor} />
