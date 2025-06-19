@@ -14,6 +14,7 @@ import {
   MenubarSubTrigger,
   MenubarTrigger,
 } from "@/components/ui/menubar";
+import { Separator } from "@/components/ui/separator";
 import { useEditorStore } from "@/store/use-editor-store";
 import { OrganizationSwitcher, UserButton } from "@clerk/clerk-react";
 import { useMutation } from "convex/react";
@@ -40,6 +41,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { BsFilePdf } from "react-icons/bs";
 import { toast } from "sonner";
+
+import { ThemeSwitch } from "@/components/theme-switch";
 
 import { api } from "../../../../convex/_generated/api";
 import { Doc } from "../../../../convex/_generated/dataModel";
@@ -303,6 +306,8 @@ export const Navbar = ({ data }: NavbarProps) => {
       </div>
       <div className="flex items-center gap-3">
         <Avatars />
+        <ThemeSwitch />
+        <Separator orientation="vertical" className="h-6 bg-separator" />
         <Inbox />
         <OrganizationSwitcher
           afterCreateOrganizationUrl="/"
